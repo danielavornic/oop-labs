@@ -1,10 +1,10 @@
-package lab1.src;
+package lab0.src;
 
 public class Person {
-  String firstName = "Daniela";
-  String lastName = "Vornic";
-  int age = 19;
-  boolean isMinor = false;
+  private String firstName;
+  private String lastName;
+  private int age;
+  private boolean isMinor;
 
   public void setFirstName(String firstName) {
     this.firstName = firstName;
@@ -15,7 +15,18 @@ public class Person {
   }
 
   public void setAge(int age) {
+    if (age < 0) {
+      System.out.println("Age cannot be negative");
+      return;
+    }
+
     this.age = age;
+
+    if (age <= 17) {
+      this.isMinor = true;
+    } else {
+      this.isMinor = false;
+    }
   }
 
   public void printAge() {
