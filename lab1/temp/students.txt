@@ -1,0 +1,4 @@
+John,Doe,john.doe@example.com,2023-09-01,2000-01-15,fcim
+Jane,Smith,jane.smith@example.com,2023-09-01,2001-03-20,fcim
+Alice,Johnson,alice.johnson@example.com,2023-09-02,1999-07-10,fcim
+Bob,Williams,bob.williams@example.com,2023-09-02,2000-05-05,fcim
