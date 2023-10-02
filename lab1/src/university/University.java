@@ -1,4 +1,4 @@
-package lab1.src;
+package lab1.src.university;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ public class University implements Serializable {
   }
 
   public void displayFacultyByStudyField(StudyField studyField) {
-    if (faculties.size() == 0) {
+    if (faculties.isEmpty()) {
       System.out.println("There are no faculties.");
       return;
     }
@@ -59,7 +59,7 @@ public class University implements Serializable {
       }
     }
 
-    if (resFaculties.size() == 0) {
+    if (resFaculties.isEmpty()) {
       System.out.println("There are no faculties with study field " + studyField + ".");
       return;
     }

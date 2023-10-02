@@ -1,4 +1,4 @@
-package lab1.src;
+package lab1.src.university;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -27,8 +27,26 @@ public class Student implements Serializable {
     return isGraduated;
   }
 
+  // get first name
+  public String getFirstName() {
+    return firstName;
+  }
+
+  // get last name
+  public String getLastName() {
+    return lastName;
+  }
+
   public String getFullName() {
     return firstName + " " + lastName;
+  }
+
+  public LocalDate getBirthDate() {
+    return dateOfBirth;
+  }
+
+  public LocalDate getEnrollmentDate() {
+    return enrollmentDate;
   }
 
   public void setIsGraduated(boolean isGraduated) {

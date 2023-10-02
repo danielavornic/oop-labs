@@ -1,4 +1,4 @@
-package lab1.src;
+package lab1.src.menu;
 
 public class MenuPrinter {
   public static void displayMenuOptions(String[] menuOptions, String title) {

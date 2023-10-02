@@ -1,4 +1,4 @@
-package lab1.src;
+package lab1.src.menu;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;

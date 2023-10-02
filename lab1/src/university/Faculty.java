@@ -1,4 +1,4 @@
-package lab1.src;
+package lab1.src.university;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -38,13 +38,7 @@ public class Faculty implements Serializable {
   }
 
   public static Student getStudentByEmail(String email) {
-    for (Student student : students) {
-      if (student.getEmail().equals(email)) {
-        return student;
-      }
-    }
-
-    return null;
+    return students.stream().filter(student -> student.getEmail().equals(email)).findFirst().orElse(null);
   }
 
   public void addStudent(Student student) {

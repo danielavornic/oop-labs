@@ -1,14 +1,80 @@
-package lab1.src;
+package lab1.src.menu;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Scanner;
+
+import lab1.src.Main;
+import lab1.src.store.FileManager;
+import lab1.src.university.*;
 
 public class FacultyMenu {
-  private static Scanner scanner = new Scanner(System.in);
-  private static University university = Menu.getUniversity();
+  private static University university = Main.getUniversity();
+
+  private static final String FACULTY_MENU_TITLE = "TUM SMS Faculty Operations";
+  private static final String[] FACULTY_MENU_OPTIONS = {
+      "1 - Create student",
+      "2 - Batch enroll students",
+      "3 - Graduate student",
+      "4 - Batch graduate students",
+      "5 - Display enrolled students",
+      "6 - Display graduated students",
+      "8 - Check if student belongs to faculty",
+      "b - Back",
+      "q - Quit"
+  };
+
+  private static final String FOLDER_PATH = "/home/vornic/Uni/sem_3/oop/labs/lab1/temp/";
+  private static final String ENROLLED_STUDENTS_PATH = FOLDER_PATH + "studentsToEnroll.txt";
+  private static final String GRADUATED_STUDENTS_PATH = FOLDER_PATH + "studentsToGraduate.txt";
+
+  public static void run() {
+    MenuPrinter.displayMenuOptions(FACULTY_MENU_OPTIONS, FACULTY_MENU_TITLE);
+    String input = InputHandler.getStringInput("Choose an option: ");
+    switch (input) {
+      case "1":
+        createStudent();
+        break;
+      case "2":
+        batchEnrollStudents();
+        break;
+      case "3":
+        graduateStudent();
+        break;
+      case "4":
+        batchGraduateStudents();
+        break;
+      case "5":
+        displayStudents();
+        break;
+      case "6":
+        displayGraduatedStudents();
+        break;
+      case "8":
+        checkIfStudentBelongsToFaculty();
+        break;
+      case "b":
+        GeneralMenu.run();
+        break;
+      case "q":
+        System.out.println("Exiting...");
+        FileManager.saveUniversityData(Main.getUniversity());
+        System.exit(0);
+        break;
+      default:
+        System.out.println("Invalid input. Please choose a valid option.");
+        break;
+    }
+
+    System.out.println("Do you want to continue? (y/n)");
+    String continueInput = InputHandler.getStringInput("Choose an option: ");
+    if (continueInput.equals("y")) {
+      run();
+    } else {
+      MainMenu.run();
+    }
+  }
 
   public static void createStudent() {
     System.out.println("Creating student...");
@@ -26,9 +92,7 @@ public class FacultyMenu {
   }
 
   public static void batchEnrollStudents() {
-    System.out.print("Enter the file path for batch enrollment: ");
-    String filePath = scanner.nextLine();
-    try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+    try (BufferedReader br = new BufferedReader(new FileReader(ENROLLED_STUDENTS_PATH))) {
       String line;
       while ((line = br.readLine()) != null) {
         String[] studentData = line.split(",");
@@ -78,9 +142,7 @@ public class FacultyMenu {
   }
 
   public static void batchGraduateStudents() {
-    System.out.print("Enter the file path for batch graduation: ");
-    String filePath = scanner.nextLine();
-    try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+    try (BufferedReader br = new BufferedReader(new FileReader(GRADUATED_STUDENTS_PATH))) {
       String line;
       while ((line = br.readLine()) != null) {
         String email = line.trim();
@@ -131,12 +193,7 @@ public class FacultyMenu {
   }
 
   private static Student findStudentByEmail(Faculty faculty, String email) {
-    for (Student student : faculty.getStudents()) {
-      if (student.getEmail().equals(email)) {
-        return student;
-      }
-    }
-    return null;
+    return faculty.getStudents().stream().filter(student -> student.getEmail().equals(email)).findFirst().orElse(null);
   }
 
   private static Faculty chooseFaculty() {

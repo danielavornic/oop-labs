@@ -1,12 +1,64 @@
-package lab1.src;
+package lab1.src.menu;
 
 import java.util.ArrayList;
 
+import lab1.src.Main;
+import lab1.src.store.FileManager;
+import lab1.src.university.*;
+
 public class GeneralMenu {
-  private static University university = Menu.getUniversity();
+  private static University university = Main.getUniversity();
 
   private static final String INVALID_INDEX_MESSAGE = "Invalid study field index. Please choose a valid index.";
   private static final String STUDENT_NOT_FOUND_MESSAGE = "Student not found.";
+
+  private static final String GENERAL_MENU_TITLE = "TUM SMS General Operations";
+  private static final String[] GENERAL_MENU_OPTIONS = {
+      "1 - Create faculty",
+      "2 - Search student and show faculty",
+      "3 - Display faculties",
+      "4 - Display all faculties of a field",
+      "b - Back",
+      "q - Quit"
+  };
+
+  public static void run() {
+    MenuPrinter.displayMenuOptions(GENERAL_MENU_OPTIONS, GENERAL_MENU_TITLE);
+    String input = InputHandler.getStringInput("Choose an option: ");
+    switch (input) {
+      case "1":
+        createFaculty();
+        break;
+      case "2":
+        searchStudentAndShowFaculty();
+        break;
+      case "3":
+        displayFaculties();
+        break;
+      case "4":
+        displayFacultiesByStudyField();
+        break;
+      case "b":
+        MainMenu.run();
+        break;
+      case "q":
+        System.out.println("Exiting...");
+        FileManager.saveUniversityData(Main.getUniversity());
+        System.exit(0);
+        break;
+      default:
+        System.out.println("Invalid input. Please choose a valid option.");
+        break;
+    }
+
+    System.out.println("Do you want to continue? (y/n)");
+    String continueInput = InputHandler.getStringInput("Choose an option: ");
+    if (continueInput.equals("y")) {
+      run();
+    } else {
+      MainMenu.run();
+    }
+  }
 
   public static StudyField getStudyFieldSelection() {
     System.out.println("Study fields: ");
@@ -27,7 +79,7 @@ public class GeneralMenu {
     StudyField studyField = getStudyFieldSelection();
     Faculty faculty = new Faculty(name, abbreviation, new ArrayList<>(), studyField);
     university.addFaculty(faculty);
-    Menu.setUniversity(university);
+    Main.setUniversity(university);
   }
 
   public static void searchStudentAndShowFaculty() {

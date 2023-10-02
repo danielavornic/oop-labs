@@ -1,0 +1,5 @@
+John,Doe,john.doe@example.com,2023-09-01,2000-01-15
+Jane,Smith,jane.smith@example.com,2023-09-01,2001-03-20
+Alice,Johnson,alice.johnson@example.com,2023-09-02,1999-07-10
+Bob,Williams,bob.williams@example.com,2023-09-02,2000-05-05
+Daniela,Vornic,daniela@gmail.com,2020-01-01,2004-01-01

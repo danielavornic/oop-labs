@@ -1,4 +1,4 @@
-package lab1.src;
+package lab1.src.university;
 
 public enum StudyField {
   MECHANICAL_ENGINEERING,
@@ -6,4 +6,4 @@ public enum StudyField {
   FOOD_TECHNOLOGY,
   URBANISM_ARCHITECTURE,
   VETERINARY_MEDICINE,
-} 
+}
