@@ -3,27 +3,26 @@ package lab1.src.menu;
 import java.util.ArrayList;
 
 import lab1.src.Main;
-import lab1.src.store.FileManager;
 import lab1.src.university.*;
 
-public class GeneralMenu {
-  private static University university = Main.getUniversity();
+public class GeneralMenu extends Menu {
+  protected String getMenuTitle() {
+    return "TUM SMS General Operations";
+  }
 
-  private static final String INVALID_INDEX_MESSAGE = "Invalid study field index. Please choose a valid index.";
-  private static final String STUDENT_NOT_FOUND_MESSAGE = "Student not found.";
+  protected String[] getMenuOptions() {
+    return new String[] {
+        "1 - Create faculty",
+        "2 - Search student and show faculty",
+        "3 - Display faculties",
+        "4 - Display all faculties of a field",
+        "b - Back",
+        "q - Quit"
+    };
+  }
 
-  private static final String GENERAL_MENU_TITLE = "TUM SMS General Operations";
-  private static final String[] GENERAL_MENU_OPTIONS = {
-      "1 - Create faculty",
-      "2 - Search student and show faculty",
-      "3 - Display faculties",
-      "4 - Display all faculties of a field",
-      "b - Back",
-      "q - Quit"
-  };
-
-  public static void run() {
-    MenuPrinter.displayMenuOptions(GENERAL_MENU_OPTIONS, GENERAL_MENU_TITLE);
+  public void run() {
+    displayMenu();
     String input = InputHandler.getStringInput("Choose an option: ");
     switch (input) {
       case "1":
@@ -33,31 +32,23 @@ public class GeneralMenu {
         searchStudentAndShowFaculty();
         break;
       case "3":
-        displayFaculties();
+        university.displayFaculties();
         break;
       case "4":
         displayFacultiesByStudyField();
         break;
       case "b":
-        MainMenu.run();
+        back();
         break;
       case "q":
-        System.out.println("Exiting...");
-        FileManager.saveUniversityData(Main.getUniversity());
-        System.exit(0);
+        exit();
         break;
       default:
-        System.out.println("Invalid input. Please choose a valid option.");
+        System.out.println(INVALID_INPUT_MESSAGE);
         break;
     }
 
-    System.out.println("Do you want to continue? (y/n)");
-    String continueInput = InputHandler.getStringInput("Choose an option: ");
-    if (continueInput.equals("y")) {
-      run();
-    } else {
-      MainMenu.run();
-    }
+    continueOrBack();
   }
 
   public static StudyField getStudyFieldSelection() {
@@ -67,7 +58,7 @@ public class GeneralMenu {
     }
     int studyFieldIndex = InputHandler.getInputInt("Study field index: ") - 1;
     while (!isStudyFieldIndexValid(studyFieldIndex)) {
-      System.out.println(INVALID_INDEX_MESSAGE);
+      System.out.println(INVALID_ST_INDEX_MESSAGE);
       studyFieldIndex = InputHandler.getInputInt("Study field index: ") - 1;
     }
     return StudyField.values()[studyFieldIndex];
@@ -87,14 +78,16 @@ public class GeneralMenu {
     Faculty faculty = university.getFacultyByStudentEmail(email);
     if (faculty == null) {
       System.out.println(STUDENT_NOT_FOUND_MESSAGE);
-    } else {
-      Student student = findStudentByEmail(faculty, email);
-      if (student != null) {
-        System.out.println("Student " + student.getFullName() + " found in faculty " + faculty.getName());
-      } else {
-        System.out.println(STUDENT_NOT_FOUND_MESSAGE);
-      }
+      return;
     }
+
+    Student student = findStudentByEmail(faculty, email);
+    if (student == null) {
+      System.out.println(STUDENT_NOT_FOUND_MESSAGE);
+      return;
+    }
+
+    System.out.println("Student " + student.getFullName() + " found in faculty " + faculty.getName());
   }
 
   private static boolean isStudyFieldIndexValid(int index) {
@@ -102,16 +95,7 @@ public class GeneralMenu {
   }
 
   private static Student findStudentByEmail(Faculty faculty, String email) {
-    for (Student student : faculty.getStudents()) {
-      if (student.getEmail().equals(email)) {
-        return student;
-      }
-    }
-    return null;
-  }
-
-  public static void displayFaculties() {
-    university.displayFaculties();
+    return faculty.getStudents().stream().filter(student -> student.getEmail().equals(email)).findFirst().orElse(null);
   }
 
   public static void displayFacultiesByStudyField() {

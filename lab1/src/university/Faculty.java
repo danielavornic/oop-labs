@@ -1,13 +1,12 @@
 package lab1.src.university;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Faculty implements Serializable {
+public class Faculty {
   private String name;
   private String abbreviation;
-  private static List<Student> students;
+  public List<Student> students;
   private StudyField studyField;
 
   public Faculty(String name, String abbreviation, List<Student> students, StudyField studyField) {
@@ -37,7 +36,7 @@ public class Faculty implements Serializable {
     return students;
   }
 
-  public static Student getStudentByEmail(String email) {
+  public Student getStudentByEmail(String email) {
     return students.stream().filter(student -> student.getEmail().equals(email)).findFirst().orElse(null);
   }
 

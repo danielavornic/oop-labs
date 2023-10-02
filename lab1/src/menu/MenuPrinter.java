@@ -1,8 +1,8 @@
 package lab1.src.menu;
 
 public class MenuPrinter {
-  public static void displayMenuOptions(String[] menuOptions, String title) {
-    System.out.print("\033[H\033[2J");
+  public static void displayMenuOptions(String title, String[] menuOptions) {
+    // System.out.print("\033[H\033[2J");
 
     int maxOptionLength = 0;
     for (String option : menuOptions) {

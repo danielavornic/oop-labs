@@ -1,9 +1,8 @@
 package lab1.src.university;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Student implements Serializable {
+public class Student {
   private String firstName;
   private String lastName;
   private String email;
@@ -11,12 +10,14 @@ public class Student implements Serializable {
   private LocalDate dateOfBirth;
   private boolean isGraduated;
 
-  public Student(String firstName, String lastName, String email, LocalDate enrollmentDate, LocalDate dateOfBirth) {
+  public Student(String firstName, String lastName, String email, LocalDate enrollmentDate, LocalDate dateOfBirth,
+      boolean isGraduated) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
     this.enrollmentDate = enrollmentDate;
     this.dateOfBirth = dateOfBirth;
+    this.isGraduated = isGraduated;
   }
 
   public String getEmail() {
@@ -27,12 +28,10 @@ public class Student implements Serializable {
     return isGraduated;
   }
 
-  // get first name
   public String getFirstName() {
     return firstName;
   }
 
-  // get last name
   public String getLastName() {
     return lastName;
   }

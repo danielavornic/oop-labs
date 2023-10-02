@@ -82,7 +82,11 @@ public class University implements Serializable {
     }
 
     System.out.println(enrolledStudents.size() + " enrolled students: ");
-    enrolledStudents.forEach(student -> System.out.println(student.getFullName() + " (" + student.getEmail() + ")"));
+    enrolledStudents.forEach(student -> {
+      Faculty faculty = getFacultyByStudentEmail(student.getEmail());
+      String facultyAbbreviation = (faculty != null) ? faculty.getAbbreviation() : "N/A";
+      System.out.println(student.getFullName() + " (" + student.getEmail() + "), " + facultyAbbreviation);
+    });
   }
 
   public void displayGraduatedStudents() {
@@ -97,6 +101,10 @@ public class University implements Serializable {
     }
 
     System.out.println("Graduated students: ");
-    graduatedStudents.forEach(student -> System.out.println(student.getFullName() + " (" + student.getEmail() + ")"));
+    graduatedStudents.forEach(student -> {
+      Faculty faculty = getFacultyByStudentEmail(student.getEmail());
+      String facultyAbbreviation = (faculty != null) ? faculty.getAbbreviation() : "N/A";
+      System.out.println(student.getFullName() + " (" + student.getEmail() + "), " + facultyAbbreviation);
+    });
   }
 }

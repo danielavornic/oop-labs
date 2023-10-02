@@ -1,11 +1,12 @@
 package lab1.src;
 
-import lab1.src.menu.MainMenu;
+import lab1.src.menu.*;
 import lab1.src.store.FileManager;
 import lab1.src.university.University;
 
 public class Main {
   private static University university;
+  private static Menu activeMenu;
 
   public static University getUniversity() {
     return university;
@@ -15,18 +16,27 @@ public class Main {
     university = uni;
   }
 
+  public static void setMenu(Menu menu) {
+    activeMenu = menu;
+  }
+
+  public static Menu getMenu() {
+    return activeMenu;
+  }
+
   public static void main(String[] args) {
     try {
       university = FileManager.loadUniversityData();
       if (university == null) {
-        Main.setUniversity(new University());
-      } else {
-        Main.setUniversity(university);
+        university = new University();
       }
+      university.displayFaculties();
     } catch (Exception e) {
-      Main.setUniversity(new University());
+      university = new University();
     }
 
-    MainMenu.run();
+    Menu menu = new MainMenu();
+    menu.setUniversity(university);
+    menu.run();
   }
 }

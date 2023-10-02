@@ -1,45 +1,42 @@
 package lab1.src.menu;
 
 import lab1.src.Main;
-import lab1.src.store.FileManager;
 
-public class MainMenu {
-  private static final String MAIN_MENU_TITLE = "TUM SMS Main Menu";
-  private static final String[] MAIN_MENU_OPTIONS = {
-      "1 - General operations",
-      "2 - Faculty operations",
-      "q - Quit"
-  };
+public class MainMenu extends Menu {
+  protected String getMenuTitle() {
+    return "TUM SMS Main Menu";
+  }
 
-  public static void run() {
-    MenuPrinter.displayMenuOptions(MAIN_MENU_OPTIONS, MAIN_MENU_TITLE);
+  protected String[] getMenuOptions() {
+    return new String[] {
+        "1 - General operations",
+        "2 - Faculty operations",
+        "q - Quit"
+    };
+  }
+
+  @Override
+  public void run() {
+    displayMenu();
     String input = InputHandler.getStringInput("Choose an option: ");
 
     switch (input) {
       case "1":
-        GeneralMenu.run();
+        Main.setMenu(new GeneralMenu());
+        Main.getMenu().run();
         break;
       case "2":
-        FacultyMenu.run();
+        Main.setMenu(new FacultyMenu());
+        Main.getMenu().run();
         break;
       case "q":
-        System.out.println("Exiting...");
-        FileManager.saveUniversityData(Main.getUniversity());
-        System.exit(0);
+        exit();
         break;
       default:
-        System.out.println("Invalid input. Please choose a valid option.");
+        System.out.println(INVALID_INPUT_MESSAGE);
         break;
     }
 
-    System.out.println("Do you want to continue? (y/n)");
-    String continueInput = InputHandler.getStringInput("Choose an option: ");
-    if (continueInput.equals("y")) {
-      run();
-    } else {
-      System.out.println("Exiting...");
-      FileManager.saveUniversityData(Main.getUniversity());
-      System.exit(0);
-    }
+    continueOrExit();
   }
 }
