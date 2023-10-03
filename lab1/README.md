@@ -41,3 +41,16 @@ Design an operation Logging System.
 1. Batch enrollment operation for students via a text file.
 2. Batch graduation operation for students via text file.
 3. Validate inputs with meaningful error statements. (**Can’t graduate student: ivan@isa.utm.md (student not present), Operation <operation> is not a valid operation, Operation requires extra data** etc.)
+
+## Implementation
+
+My laboratory includes the functionalities for the working system (10 grade), besides the logging operations. The main program is in the Main class.
+
+**Notes:**
+
+For the file operations, change the `FOLDER_PATH` constant from `/src/menu/MenuConstants.java` accordingly.
+
+The structure for the `studentsToEnroll.txt` file is the following:
+`<firstName>,<lastName>,<email>,<enrollmentDate>,<dateOfBirth>,<isGraduated>`
+
+The `studentsToGraduate.txt` file contains only the student emails.
