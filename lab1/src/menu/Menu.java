@@ -1,7 +1,7 @@
 package lab1.src.menu;
 
 import lab1.src.Main;
-import lab1.src.store.FileManager;
+import lab1.src.store.UniFileManager;
 import lab1.src.university.University;
 
 public abstract class Menu {
@@ -25,7 +25,7 @@ public abstract class Menu {
   protected void exit() {
     System.out.println();
     System.out.println("Exiting...");
-    FileManager.saveUniversityData(university);
+    UniFileManager.saveUniversityData(university);
     InputHandler.closeScanner();
     System.exit(0);
   }

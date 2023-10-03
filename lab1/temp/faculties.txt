@@ -1,3 +1,4 @@
-Faculty of Computers,fcim,SOFTWARE_ENGINEERING
-Vet Med,fmv,VETERINARY_MEDICINE
-Urbanism şi Arhitectură,fua,URBANISM_ARCHITECTURE
+Calculatoare si Microelectronica,FCIM,SOFTWARE_ENGINEERING
+Food Technology,FT,FOOD_TECHNOLOGY
+Architecture,FA,URBANISM_ARCHITECTURE
+Veterinary Medicine,FMV,VETERINARY_MEDICINE

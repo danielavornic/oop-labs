@@ -6,11 +6,13 @@ import java.io.IOException;
 import java.time.LocalDate;
 
 import lab1.src.Main;
+import lab1.src.logger.Logger;
 import lab1.src.menu.MenuConstants;
 import lab1.src.university.*;
 
 public class BatchOperations {
   private static University university = Main.getUniversity();
+  private static Logger logger = Main.getLogger();
 
   public static void batchEnrollStudents() {
     try (BufferedReader br = new BufferedReader(new FileReader(MenuConstants.ENROLLED_STUDENTS_PATH))) {
@@ -29,6 +31,8 @@ public class BatchOperations {
               Student student = new Student(firstName, lastName, email, enrollmentDate, dateOfBirth, false);
               if (GeneralOperations.findStudentByEmail(faculty, email) == null) {
                 faculty.getStudents().add(student);
+                logger.logStudentCreation(student, facultyAbbreviation);
+
                 System.out.println("Enrolled student: " + firstName + " " + lastName);
               } else {
                 System.out.println("Student with email " + email + " already enrolled.");
@@ -51,8 +55,12 @@ public class BatchOperations {
             .findFirst()
             .orElse(null);
         if (student != null) {
+          Faculty faculty = university.getFacultyByStudentEmail(email);
+
           if (!student.getIsGraduated()) {
             student.setIsGraduated(true);
+            logger.logStudentGraduation(student, faculty.getAbbreviation());
+
             System.out.println("Graduated student: " + student.getFullName());
           } else {
             System.out.println("Student with email " + email + " has already graduated.");

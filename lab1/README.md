@@ -44,7 +44,7 @@ Design an operation Logging System.
 
 ## Implementation
 
-My laboratory includes the functionalities for the working system (10 grade), besides the logging operations. The main program is in the Main class.
+My laboratory includes the functionalities for the working system (10 grade), with some invalid input error handling. The main program is in the Main class.
 
 **Notes:**
 

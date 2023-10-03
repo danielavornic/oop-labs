@@ -1,0 +1,11 @@
+2023-10-03T10:48:12.830733205,vornic,Graduated student David Brown (david.brown@example.com) in faculty FMV.
+2023-10-03T10:48:12.825824515,vornic,Graduated student Mark Anderson (mark.anderson@example.com) in faculty FT.
+2023-10-03T10:47:56.667971387,vornic,Created student David Brown (david.brown@example.com) in faculty FMV.
+2023-10-03T10:47:56.667091637,vornic,Created student Emily Martin (emily.martin@example.com) in faculty FT.
+2023-10-03T10:47:56.665975087,vornic,Created student Michael Clark (michael.clark@example.com) in faculty FA.
+2023-10-03T10:47:56.661093197,vornic,Created student Sarah Miller (sarah.miller@example.com) in faculty FCIM.
+2023-10-03T10:47:56.659893513,vornic,Created student Mark Anderson (mark.anderson@example.com) in faculty FT.
+2023-10-03T10:47:32.169628060,vornic,Created faculty Veterinary Medicine (FMV).
+2023-10-03T10:47:19.074187833,vornic,Created faculty Architecture (FA).
+2023-10-03T10:47:05.343331394,vornic,Created faculty Food Technology (FT).
+2023-10-03T10:46:49.324759190,vornic,Created faculty Calculatoare si Microelectronica (FCIM).

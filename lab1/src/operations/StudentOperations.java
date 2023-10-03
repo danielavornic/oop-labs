@@ -3,12 +3,13 @@ package lab1.src.operations;
 import java.time.LocalDate;
 
 import lab1.src.Main;
-import lab1.src.menu.InputHandler;
-import lab1.src.menu.MenuConstants;
+import lab1.src.logger.*;
+import lab1.src.menu.*;
 import lab1.src.university.*;
 
 public class StudentOperations {
   private static University university = Main.getUniversity();
+  private static Logger logger = Main.getLogger();
 
   public static void createStudent() {
     System.out.println("Creating student...");
@@ -21,6 +22,8 @@ public class StudentOperations {
     if (faculty != null) {
       Student student = new Student(firstName, lastName, email, enrollmentDate, dateOfBirth, false);
       faculty.getStudents().add(student);
+      logger.logStudentCreation(student, faculty.getAbbreviation());
+
       System.out.println("Student created successfully!");
     }
   }
@@ -35,6 +38,8 @@ public class StudentOperations {
       if (student != null) {
         if (!student.getIsGraduated()) {
           student.setIsGraduated(true);
+          logger.logStudentGraduation(student, faculty.getAbbreviation());
+
           System.out.println("Student graduated successfully!");
         } else {
           System.out.println("Student with email " + email + " has already graduated.");

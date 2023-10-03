@@ -41,9 +41,4 @@ public class University {
 
     return resFaculties;
   }
-
-  // public Student findStudentByEmail(Faculty faculty, String email) {
-  // return faculty.getStudents().stream().filter(student ->
-  // student.getEmail().equals(email)).findFirst().orElse(null);
-  // }
 }

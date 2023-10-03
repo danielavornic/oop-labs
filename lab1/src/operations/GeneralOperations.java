@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 import lab1.src.Main;
+import lab1.src.logger.Logger;
 import lab1.src.menu.InputHandler;
 import lab1.src.menu.MenuConstants;
 import lab1.src.university.*;
 
 public class GeneralOperations {
   private static University university = Main.getUniversity();
+  private static Logger logger = Main.getLogger();
 
   public static void displayFaculties() {
     if (university.getFaculties().isEmpty()) {
@@ -71,6 +73,8 @@ public class GeneralOperations {
     Faculty faculty = new Faculty(name, abbreviation, new ArrayList<>(), studyField);
     university.addFaculty(faculty);
     Main.setUniversity(university);
+
+    logger.logFacultyCreation(faculty);
   }
 
   public static void displayFacultiesByStudyField() {

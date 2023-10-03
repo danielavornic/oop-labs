@@ -1,4 +1,5 @@
-John,Doe,john.doe@example.com,2023-09-01,2000-01-15,fcim
-Jane,Smith,jane.smith@example.com,2023-09-01,2001-03-20,fcim
-Alice,Johnson,alice.johnson@example.com,2023-09-02,1999-07-10,fcim
-Bob,Williams,bob.williams@example.com,2023-09-02,2000-05-05,fcim
+Mark,Anderson,mark.anderson@example.com,2023-09-01,2000-02-20,FT
+Sarah,Miller,sarah.miller@example.com,2023-09-01,1998-11-12,FCIM
+Michael,Clark,michael.clark@example.com,2023-09-02,2001-04-25,FA
+Emily,Martin,emily.martin@example.com,2023-09-02,1999-09-30,FT
+David,Brown,david.brown@example.com,2023-09-03,2000-07-15,FMV

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import lab1.src.menu.*;
 import lab1.src.university.*;
 
-public class FileManager {
+public class UniFileManager {
   private static final String FACULTIES_FILE_PATH = MenuConstants.FOLDER_PATH + "faculties.txt";
 
   public static University loadUniversityData() {
@@ -40,9 +40,6 @@ public class FileManager {
           }
         }
         Faculty faculty = new Faculty(facultyName, facultyAbbreviation, students, studyField);
-        for (Student student : students) {
-          System.out.println(student.getFullName() + facultyName);
-        }
         university.addFaculty(faculty);
       }
     } catch (IOException e) {
@@ -69,6 +66,6 @@ public class FileManager {
     } catch (IOException e) {
       e.printStackTrace();
     }
-
   }
+
 }
