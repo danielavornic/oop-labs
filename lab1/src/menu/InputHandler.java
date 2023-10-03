@@ -17,7 +17,6 @@ public class InputHandler {
         System.out.println("Invalid input. Please enter a valid integer.");
       }
     }
-
   }
 
   public static String getStringInput(String prompt) {
@@ -35,5 +34,9 @@ public class InputHandler {
         System.out.println("Invalid input. Please enter a valid date in the format yyyy-mm-dd.");
       }
     }
+  }
+
+  public static void closeScanner() {
+    scanner.close();
   }
 }

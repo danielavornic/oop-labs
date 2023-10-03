@@ -23,17 +23,15 @@ public class MainMenu extends Menu {
     switch (input) {
       case "1":
         Main.setMenu(new GeneralMenu());
-        Main.getMenu().run();
         break;
       case "2":
         Main.setMenu(new FacultyMenu());
-        Main.getMenu().run();
         break;
       case "q":
         exit();
         break;
       default:
-        System.out.println(INVALID_INPUT_MESSAGE);
+        System.out.println(MenuConstants.INVALID_INPUT_MESSAGE);
         break;
     }
 

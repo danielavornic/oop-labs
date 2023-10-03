@@ -1,6 +1,6 @@
 package lab1.src.menu;
 
-import lab1.src.university.*;
+import lab1.src.operations.*;
 
 public class FacultyMenu extends Menu {
   protected String getMenuTitle() {
@@ -40,13 +40,13 @@ public class FacultyMenu extends Menu {
         BatchOperations.batchGraduateStudents();
         break;
       case "5":
-        university.displayStudents();
+        FacultyOperations.displayStudents();
         break;
       case "6":
-        university.displayGraduatedStudents();
+        FacultyOperations.displayGraduatedStudents();
         break;
       case "8":
-        checkIfStudentBelongsToFaculty();
+        FacultyOperations.checkIfStudentBelongsToFaculty();
         break;
       case "b":
         back();
@@ -55,30 +55,10 @@ public class FacultyMenu extends Menu {
         exit();
         break;
       default:
-        System.out.println(INVALID_INPUT_MESSAGE);
+        System.out.println(MenuConstants.INVALID_INPUT_MESSAGE);
         break;
     }
 
     continueOrBack();
-  }
-
-  public static void checkIfStudentBelongsToFaculty() {
-    String email = InputHandler.getStringInput("Student email: ");
-    university.displayFaculties();
-    int facultyIndex = InputHandler.getInputInt("Faculty index: ") - 1;
-    while (facultyIndex < 0 || facultyIndex >= university.getFaculties().size()) {
-      System.out.println(INVALID_FACULTY_INDEX_MESSAGE);
-      facultyIndex = InputHandler.getInputInt("Faculty index: ");
-    }
-
-    Faculty faculty = university.getFaculties().get(facultyIndex);
-    for (Student student : faculty.getStudents()) {
-      if (student.getEmail().equals(email)) {
-        System.out.println("Student with email " + email + " belongs to faculty " + faculty.getName() + ".");
-        return;
-      }
-    }
-
-    System.out.println("Student with email " + email + " does not belong to faculty " + faculty.getName() + ".");
   }
 }

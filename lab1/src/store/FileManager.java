@@ -7,11 +7,11 @@ import java.io.FileWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import lab1.src.menu.Menu;
+import lab1.src.menu.*;
 import lab1.src.university.*;
 
 public class FileManager {
-  private static final String FACULTIES_FILE_PATH = Menu.FOLDER_PATH + "faculties.txt";
+  private static final String FACULTIES_FILE_PATH = MenuConstants.FOLDER_PATH + "faculties.txt";
 
   public static University loadUniversityData() {
     University university = new University();
@@ -25,7 +25,7 @@ public class FileManager {
 
         ArrayList<Student> students = new ArrayList<Student>();
         try (BufferedReader studentsReader = new BufferedReader(
-            new FileReader(Menu.FOLDER_PATH + facultyAbbreviation + ".txt"))) {
+            new FileReader(MenuConstants.FOLDER_PATH + facultyAbbreviation + ".txt"))) {
           String studentLine;
           while ((studentLine = studentsReader.readLine()) != null) {
             String[] studentData = studentLine.split(",");
@@ -57,7 +57,7 @@ public class FileManager {
       for (Faculty faculty : university.getFaculties()) {
         facultiesFile
             .write(faculty.getName() + "," + faculty.getAbbreviation() + "," + faculty.getStudyField() + "\n");
-        FileWriter studentsFile = new FileWriter(Menu.FOLDER_PATH + faculty.getAbbreviation() + ".txt");
+        FileWriter studentsFile = new FileWriter(MenuConstants.FOLDER_PATH + faculty.getAbbreviation() + ".txt");
         for (Student student : faculty.getStudents()) {
           studentsFile
               .write(student.getFirstName() + "," + student.getLastName() + "," + student.getEmail() + ","

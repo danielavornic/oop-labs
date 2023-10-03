@@ -18,6 +18,7 @@ public class Main {
 
   public static void setMenu(Menu menu) {
     activeMenu = menu;
+    activeMenu.run();
   }
 
   public static Menu getMenu() {
@@ -30,13 +31,11 @@ public class Main {
       if (university == null) {
         university = new University();
       }
-      university.displayFaculties();
     } catch (Exception e) {
       university = new University();
     }
 
     Menu menu = new MainMenu();
-    menu.setUniversity(university);
     menu.run();
   }
 }

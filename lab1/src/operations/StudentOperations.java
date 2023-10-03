@@ -1,11 +1,11 @@
-package lab1.src.menu;
+package lab1.src.operations;
 
 import java.time.LocalDate;
 
 import lab1.src.Main;
-import lab1.src.university.Faculty;
-import lab1.src.university.Student;
-import lab1.src.university.University;
+import lab1.src.menu.InputHandler;
+import lab1.src.menu.MenuConstants;
+import lab1.src.university.*;
 
 public class StudentOperations {
   private static University university = Main.getUniversity();
@@ -50,19 +50,14 @@ public class StudentOperations {
   }
 
   private static Faculty chooseFaculty() {
-    System.out.println("Faculties: ");
-    for (int i = 0; i < university.getFaculties().size(); i++) {
-      String facultyName = university.getFaculties().get(i).getName();
-      String facultyAbbreviation = university.getFaculties().get(i).getAbbreviation();
-      System.out.println((i + 1) + ") " + facultyName + " (" + facultyAbbreviation + ")");
-    }
+    GeneralOperations.displayFaculties();
 
     int facultyIndex = InputHandler.getInputInt("Faculty index: ") - 1;
     if (facultyIndex >= 0 && facultyIndex < university.getFaculties().size()) {
       return university.getFaculties().get(facultyIndex);
     }
 
-    System.out.println(Menu.INVALID_FACULTY_INDEX_MESSAGE);
+    System.out.println(MenuConstants.INVALID_FACULTY_INDEX_MESSAGE);
     return null;
   }
 }

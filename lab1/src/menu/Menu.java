@@ -5,19 +5,7 @@ import lab1.src.store.FileManager;
 import lab1.src.university.University;
 
 public abstract class Menu {
-  protected static University university;
-
-  public static String FOLDER_PATH = "/home/vornic/Uni/sem_3/oop/labs/lab1/temp/";
-  public static String ENROLLED_STUDENTS_PATH = FOLDER_PATH + "studentsToEnroll.txt";
-  public static String GRADUATED_STUDENTS_PATH = FOLDER_PATH + "studentsToGraduate.txt";
-  public static String INVALID_INPUT_MESSAGE = "Invalid input. Please choose a valid option.";
-  public static String INVALID_ST_INDEX_MESSAGE = "Invalid study field index. Please choose a valid index.";
-  public static String INVALID_FACULTY_INDEX_MESSAGE = "Invalid faculty index. Please choose a valid index.";
-  public static String STUDENT_NOT_FOUND_MESSAGE = "Student not found.";
-
-  public void setUniversity(University uni) {
-    university = uni;
-  }
+  protected static University university = Main.getUniversity();
 
   public abstract void run();
 
@@ -35,15 +23,22 @@ public abstract class Menu {
   }
 
   protected void exit() {
+    System.out.println();
     System.out.println("Exiting...");
-    FileManager.saveUniversityData(Main.getUniversity());
+    FileManager.saveUniversityData(university);
+    InputHandler.closeScanner();
     System.exit(0);
   }
 
-  protected void continueOrBack() {
+  protected boolean getYesOrNoInput() {
+    System.out.println();
     System.out.println("Do you want to continue? (y/n)");
-    String continueInput = InputHandler.getStringInput("Choose an option: ");
-    if (continueInput.equals("y")) {
+    String input = InputHandler.getStringInput("Choose an option: ");
+    return input.equalsIgnoreCase("y");
+  }
+
+  protected void continueOrBack() {
+    if (getYesOrNoInput()) {
       run();
     } else {
       back();
@@ -51,9 +46,7 @@ public abstract class Menu {
   }
 
   protected void continueOrExit() {
-    System.out.println("Do you want to continue? (y/n)");
-    String continueInput = InputHandler.getStringInput("Choose an option: ");
-    if (continueInput.equals("y")) {
+    if (getYesOrNoInput()) {
       run();
     } else {
       exit();
