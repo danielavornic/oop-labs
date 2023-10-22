@@ -1,16 +1,28 @@
 import java.util.Scanner;
 
+import tracking.DetectionScheduler;
+import tracking.DirectoryWatcher;
+
 public class Main {
   private static DirectoryWatcher directoryWatcher = new DirectoryWatcher();
+  private static DetectionScheduler detectionScheduler = new DetectionScheduler(directoryWatcher.getSnapshotSystem());
 
   public static void main(String[] args) {
-    Scanner scanner = new Scanner(System.in);
+    detectionScheduler.start();
 
     System.out.print("\033[H\033[2J");
 
+    Scanner scanner = new Scanner(System.in);
+
     while (true) {
-      System.out.print("> ");
-      String command = scanner.nextLine().trim();
+      System.out.print(">");
+
+      String command = scanner.nextLine();
+      if ("q".equalsIgnoreCase(command)) {
+        detectionScheduler.shutdown();
+        scanner.close();
+        break;
+      }
 
       switch (command) {
         case "c":
@@ -20,11 +32,6 @@ public class Main {
         case "s":
           directoryWatcher.status();
           break;
-
-        case "q":
-          System.out.println("Exiting...");
-          scanner.close();
-          return;
 
         default:
           if (command.startsWith("i")) {
@@ -36,7 +43,7 @@ public class Main {
               System.out.println("Filename required for info command.");
             }
           } else {
-            System.out.println("Invalid command.");
+            System.out.println("Invalid command. Only c, s, i and q are allowed.");
           }
       }
     }

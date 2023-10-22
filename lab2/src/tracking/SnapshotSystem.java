@@ -11,6 +11,7 @@ public class SnapshotSystem {
   private final String SNAPSHOT_FILE;
 
   private final Hashtable<String, SystemFile> currentSnapshot;
+  private Hashtable<String, SystemFile> lastKnownSnapshot;
   private Hashtable<String, SystemFile> previousSnapshot;
   private long lastSnapshotTime;
 
@@ -19,9 +20,15 @@ public class SnapshotSystem {
     this.SNAPSHOT_FILE = snapshotFile;
     this.currentSnapshot = new Hashtable<>();
     this.previousSnapshot = new Hashtable<>();
+    this.lastKnownSnapshot = new Hashtable<>(this.currentSnapshot);
   }
 
   public void loadSnapshot() {
+    loadPreviousSnapshot();
+    loadCurrentSnapshot();
+  }
+
+  public void loadPreviousSnapshot() {
     try {
       List<String> lines = Files.readAllLines(Paths.get(SNAPSHOT_FILE));
       lastSnapshotTime = Long.parseLong(lines.get(0));
@@ -35,21 +42,23 @@ public class SnapshotSystem {
         SystemFile fileObj = SystemFile.createFileObject(DIRECTORY_PATH, fileName, lastModified);
         previousSnapshot.put(fileName, fileObj);
       }
-
-      currentSnapshot.clear();
-      File directory = new File(DIRECTORY_PATH);
-      if (directory.exists() && directory.isDirectory()) {
-        File[] files = directory.listFiles();
-        if (files != null) {
-          for (File file : files) {
-            String fileName = file.getName();
-            SystemFile fileObj = SystemFile.createFileObject(DIRECTORY_PATH, fileName, file.lastModified());
-            currentSnapshot.put(fileName, fileObj);
-          }
-        }
-      }
     } catch (IOException e) {
       System.out.println("Failed to load snapshot or snapshot doesn't exist");
+    }
+  }
+
+  public void loadCurrentSnapshot() {
+    currentSnapshot.clear();
+    File directory = new File(DIRECTORY_PATH);
+    if (directory.exists() && directory.isDirectory()) {
+      File[] files = directory.listFiles();
+      if (files != null) {
+        for (File file : files) {
+          String fileName = file.getName();
+          SystemFile fileObj = SystemFile.createFileObject(DIRECTORY_PATH, fileName, file.lastModified());
+          currentSnapshot.put(fileName, fileObj);
+        }
+      }
     }
   }
 
@@ -78,6 +87,10 @@ public class SnapshotSystem {
     return lastSnapshotTime;
   }
 
+  public Hashtable<String, SystemFile> getLastKnownSnapshot() {
+    return lastKnownSnapshot;
+  }
+
   public void setLastSnapshotTime(long lastSnapshotTime) {
     this.lastSnapshotTime = lastSnapshotTime;
   }
@@ -90,5 +103,10 @@ public class SnapshotSystem {
   public void setPreviousSnapshot(Hashtable<String, SystemFile> previousSnapshot) {
     this.previousSnapshot.clear();
     this.previousSnapshot.putAll(previousSnapshot);
+  }
+
+  public void setLastKnownSnapshot() {
+    this.lastKnownSnapshot.clear();
+    this.lastKnownSnapshot.putAll(this.currentSnapshot);
   }
 }
