@@ -1,4 +1,4 @@
-package lab2.workspace;
+package lab2.files;
 
 public class Box {
   private double width;

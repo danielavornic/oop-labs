@@ -10,8 +10,8 @@ public class ProgramFile extends SystemFile {
   private int classCount;
   private int methodCount;
 
-  public ProgramFile(String directoryPath, String filename) {
-    super(directoryPath, filename);
+  public ProgramFile(String directoryPath, String filename, long lastModifiedTime) {
+    super(directoryPath, filename, lastModifiedTime);
     parseProgramFile();
   }
 

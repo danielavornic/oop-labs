@@ -17,9 +17,9 @@ public class Main {
           directoryWatcher.commit();
           break;
 
-        // case "status":
-        // directoryWatcher.status();
-        // break;
+        case "s":
+          directoryWatcher.status();
+          break;
 
         case "q":
           System.out.println("Exiting...");

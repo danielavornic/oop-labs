@@ -10,9 +10,10 @@ public class TextFile extends SystemFile {
   private int wordCount;
   private int charCount;
 
-  public TextFile(String directoryPath, String filename) {
-    super(directoryPath, filename);
-    computeTextFileAttributes();
+  public TextFile(String directoryPath, String filename, long lastModifiedTime) {
+    super(directoryPath, filename, lastModifiedTime);
+    if (this.lastModifiedTime != 0)
+      computeTextFileAttributes();
   }
 
   private void computeTextFileAttributes() {

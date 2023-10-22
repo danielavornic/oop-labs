@@ -9,8 +9,8 @@ public class ImgFile extends SystemFile {
   private int width;
   private int height;
 
-  public ImgFile(String directoryPath, String filename) {
-    super(directoryPath, filename);
+  public ImgFile(String directoryPath, String filename, long lastModifiedTime) {
+    super(directoryPath, filename, lastModifiedTime);
     fetchImageDimensions();
   }
 
