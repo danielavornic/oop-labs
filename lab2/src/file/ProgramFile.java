@@ -10,13 +10,13 @@ public class ProgramFile extends SystemFile {
   private int classCount;
   private int methodCount;
 
-  public ProgramFile(String directoryPath, String filename, String extension) {
-    super(directoryPath, filename, extension);
+  public ProgramFile(String directoryPath, String filename) {
+    super(directoryPath, filename);
     parseProgramFile();
   }
 
   private void parseProgramFile() {
-    File file = new File(directoryPath + File.separator + filename + "." + extension);
+    File file = new File(directoryPath + File.separator + filename);
     try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
       String line;
       while ((line = reader.readLine()) != null) {
@@ -28,9 +28,10 @@ public class ProgramFile extends SystemFile {
           if (line.trim().startsWith("def "))
             methodCount++;
         } else if (extension.equals("java")) {
-          if (line.trim().startsWith("class "))
+          if (line.trim().contains("class "))
             classCount++;
           // Simplified; assumes public methods, no nested classes, etc.
+          // TODO: improve class method detection
           if (line.trim().contains("public "))
             methodCount++;
         }
@@ -46,29 +47,5 @@ public class ProgramFile extends SystemFile {
     System.out.println("Line count: " + lineCount);
     System.out.println("Class count: " + classCount);
     System.out.println("Method count: " + methodCount);
-  }
-
-  public int getLineCount() {
-    return lineCount;
-  }
-
-  public int getClassCount() {
-    return classCount;
-  }
-
-  public int getMethodCount() {
-    return methodCount;
-  }
-
-  public void setLineCount(int lineCount) {
-    this.lineCount = lineCount;
-  }
-
-  public void setClassCount(int classCount) {
-    this.classCount = classCount;
-  }
-
-  public void setMethodCount(int methodCount) {
-    this.methodCount = methodCount;
   }
 }

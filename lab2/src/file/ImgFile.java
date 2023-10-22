@@ -9,13 +9,13 @@ public class ImgFile extends SystemFile {
   private int width;
   private int height;
 
-  public ImgFile(String directoryPath, String filename, String extension) {
-    super(directoryPath, filename, extension);
+  public ImgFile(String directoryPath, String filename) {
+    super(directoryPath, filename);
     fetchImageDimensions();
   }
 
   private void fetchImageDimensions() {
-    File file = new File(directoryPath + File.separator + filename + "." + extension);
+    File file = new File(directoryPath + File.separator + filename);
     try {
       BufferedImage img = ImageIO.read(file);
       width = img.getWidth();
@@ -30,22 +30,6 @@ public class ImgFile extends SystemFile {
   @Override
   public void printInfo() {
     super.printInfo();
-    System.out.println("Image dimensions: " + width + "x" + height);
-  }
-
-  public int getWidth() {
-    return width;
-  }
-
-  public int getHeight() {
-    return height;
-  }
-
-  public void setWidth(int width) {
-    this.width = width;
-  }
-
-  public void setHeight(int height) {
-    this.height = height;
+    System.out.println("Image size: " + width + "x" + height);
   }
 }

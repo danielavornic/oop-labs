@@ -1,6 +1,7 @@
 package file;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -9,13 +10,14 @@ public class TextFile extends SystemFile {
   private int wordCount;
   private int charCount;
 
-  public TextFile(String directoryPath, String filename, String extension) {
-    super(directoryPath, filename, extension);
+  public TextFile(String directoryPath, String filename) {
+    super(directoryPath, filename);
     computeTextFileAttributes();
   }
 
   private void computeTextFileAttributes() {
-    try (BufferedReader reader = new BufferedReader(new FileReader(getFilename() + "." + getExtension()))) {
+    File file = new File(directoryPath + File.separator + filename);
+    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
       String line;
       while ((line = reader.readLine()) != null) {
         lineCount++;
@@ -35,29 +37,5 @@ public class TextFile extends SystemFile {
     System.out.println("Line Count: " + lineCount);
     System.out.println("Word Count: " + wordCount);
     System.out.println("Character Count: " + charCount);
-  }
-
-  public int getLineCount() {
-    return lineCount;
-  }
-
-  public int getWordCount() {
-    return wordCount;
-  }
-
-  public int getCharCount() {
-    return charCount;
-  }
-
-  public void setLineCount(int lineCount) {
-    this.lineCount = lineCount;
-  }
-
-  public void setWordCount(int wordCount) {
-    this.wordCount = wordCount;
-  }
-
-  public void setCharCount(int charCount) {
-    this.charCount = charCount;
   }
 }

@@ -1,11 +1,12 @@
 package file;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 public class SystemFile {
   protected String directoryPath;
@@ -14,68 +15,35 @@ public class SystemFile {
   protected long lastModifiedTime;
   protected long createdTime;
 
-  public SystemFile(String directoryPath, String filename, String extension) {
+  public SystemFile(String directoryPath, String filename) {
     this.filename = filename;
-    this.extension = extension;
+    this.extension = filename.substring(filename.lastIndexOf('.') + 1);
     this.directoryPath = directoryPath;
-    this.lastModifiedTime = fetchLastModifiedTime();
-    this.createdTime = fetchCreatedTime();
+    setFileTimes();
   }
 
-  public String getFilename() {
-    return filename;
-  }
-
-  public String getExtension() {
-    return extension;
-  }
-
-  public long getLastModifiedTime() {
-    return lastModifiedTime;
-  }
-
-  public long getCreatedTime() {
-    return createdTime;
-  }
-
-  public void setFilename(String filename) {
-    this.filename = filename;
-  }
-
-  public void setExtension(String extension) {
-    this.extension = extension;
-  }
-
-  public void setLastModifiedTime(long lastModifiedTime) {
-    this.lastModifiedTime = lastModifiedTime;
-  }
-
-  public void setCreatedTime(long createdTime) {
-    this.createdTime = createdTime;
-  }
-
-  public long fetchLastModifiedTime() {
-    File file = new File(directoryPath + File.separator + filename + "." + extension);
-    if (file.exists()) {
-      return file.lastModified();
-    }
-    return -1;
-  }
-
-  public long fetchCreatedTime() {
-    Path filePath = Paths.get(directoryPath, filename + "." + extension);
+  public void setFileTimes() {
+    Path filePath = Paths.get(directoryPath, filename);
     try {
       BasicFileAttributes attrs = Files.readAttributes(filePath, BasicFileAttributes.class);
-      return attrs.creationTime().toMillis();
+      this.lastModifiedTime = attrs.lastModifiedTime().toMillis();
+      // TODO: Ask about created time vs last access time
+      this.createdTime = attrs.lastAccessTime().toMillis();
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return -1;
+  }
+
+  public String printTime(long time) {
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    return sdf.format(new Date(time));
   }
 
   public void printInfo() {
-    System.out.println("File: " + filename + "." + extension);
-    System.out.println("Created time: " + createdTime);
-    System.out.println("Last modified time: " + lastModifiedTime);
+    String fileName = filename.substring(0, filename.lastIndexOf('.'));
+    System.out.println("File Name: " + fileName);
+    System.out.println("Extension: " + extension);
+    System.out.println("Created time: " + printTime(this.createdTime));
+    System.out.println("Last modified time: " + printTime(this.lastModifiedTime));
   }
 }
