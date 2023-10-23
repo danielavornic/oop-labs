@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class ProgramFile extends SystemFile {
   private int lineCount;
@@ -22,19 +24,26 @@ public class ProgramFile extends SystemFile {
       while ((line = reader.readLine()) != null) {
         lineCount++;
 
+        Pattern classPattern, methodPattern;
+        Matcher classMatcher, methodMatcher;
+
         if (extension.equals("py")) {
-          if (line.trim().startsWith("class "))
-            classCount++;
-          if (line.trim().startsWith("def "))
-            methodCount++;
+          classPattern = Pattern.compile("^class\\s+\\w+:");
+          methodPattern = Pattern.compile("^def\\s+\\w+\\(.*\\):");
         } else if (extension.equals("java")) {
-          if (line.trim().contains("class "))
-            classCount++;
-          // Simplified; assumes public methods, no nested classes, etc.
-          // TODO: improve class method detection
-          if (line.trim().contains("public "))
-            methodCount++;
+          classPattern = Pattern.compile("\\bclass\\b");
+          methodPattern = Pattern
+              .compile("^(public|private|protected|static|\\s) +[\\w\\<\\>\\[\\]]+\\s+[\\w_]+\\(.*\\)\\s*\\{?$");
+        } else {
+          continue;
         }
+
+        classMatcher = classPattern.matcher(line.trim());
+        methodMatcher = methodPattern.matcher(line.trim());
+        if (classMatcher.find())
+          classCount++;
+        if (methodMatcher.find())
+          methodCount++;
       }
     } catch (IOException e) {
       e.printStackTrace();
