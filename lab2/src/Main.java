@@ -1,13 +1,12 @@
 import java.util.Scanner;
 
-import tracking.DetectionScheduler;
-import tracking.DirectoryWatcher;
+import tracking.*;
 
 public class Main {
-  private static DirectoryWatcher directoryWatcher = new DirectoryWatcher();
-  private static DetectionScheduler detectionScheduler = new DetectionScheduler(directoryWatcher.getSnapshotSystem());
-
   public static void main(String[] args) {
+    final DirectoryWatcher directoryWatcher = new DirectoryWatcher();
+    final DetectionScheduler detectionScheduler = new DetectionScheduler(directoryWatcher.getSnapshotSystem());
+
     detectionScheduler.start();
 
     System.out.print("\033[H\033[2J");
