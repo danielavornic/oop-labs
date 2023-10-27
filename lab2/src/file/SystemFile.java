@@ -28,9 +28,15 @@ public class SystemFile {
 
   public void setFileTimes() {
     Path filePath = Paths.get(directoryPath, filename);
+
+    if (!Files.exists(filePath)) {
+      System.err.println("File does not exist: " + filePath);
+      return;
+    }
+
     try {
       BasicFileAttributes attrs = Files.readAttributes(filePath, BasicFileAttributes.class);
-      // TODO: Ask about created time vs last access time
+      // lastAccessTime as createdTime
       this.createdTime = attrs.lastAccessTime().toMillis();
     } catch (IOException e) {
       e.printStackTrace();
