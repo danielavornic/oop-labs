@@ -7,29 +7,36 @@ import queues.*;
 public class QueueTest {
 
   private Queue<Integer> arrayQueue;
+  private Queue<Integer> vectorQueue;
 
   @BeforeEach
   public void setUp() {
     arrayQueue = new ArrayQueue<>();
+    vectorQueue = new VectorQueue<>();
   }
 
   @Test
   public void testEnqueueAndDequeue() {
     assertEnqueueAndDequeue(arrayQueue);
+    assertEnqueueAndDequeue(vectorQueue);
   }
 
   @Test
   public void testPeek() {
     assertPeek(arrayQueue);
+    assertPeek(vectorQueue);
   }
 
   @Test
   public void testIsEmpty() {
     assertTrue(arrayQueue.isEmpty());
+    assertTrue(vectorQueue.isEmpty());
 
     arrayQueue.enqueue(1);
+    vectorQueue.enqueue(1);
 
     assertFalse(arrayQueue.isEmpty());
+    assertFalse(vectorQueue.isEmpty());
   }
 
   private void assertEnqueueAndDequeue(Queue<Integer> queue) {
