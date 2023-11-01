@@ -7,29 +7,36 @@ import stacks.*;
 public class StackTest {
 
   private Stack<Integer> arrayStack;
+  private Stack<Integer> vectorStack;
 
   @BeforeEach
   public void setUp() {
     arrayStack = new ArrayStack<>();
+    vectorStack = new VectorStack<>();
   }
 
   @Test
   public void testPushAndPop() {
     assertPushAndPop(arrayStack);
+    assertPushAndPop(vectorStack);
   }
 
   @Test
   public void testPeek() {
     assertPeek(arrayStack);
+    assertPeek(vectorStack);
   }
 
   @Test
   public void testIsEmpty() {
     assertTrue(arrayStack.isEmpty());
+    assertTrue(vectorStack.isEmpty());
 
     arrayStack.push(1);
+    vectorStack.push(1);
 
     assertFalse(arrayStack.isEmpty());
+    assertFalse(vectorStack.isEmpty());
   }
 
   private void assertPushAndPop(Stack<Integer> stack) {
