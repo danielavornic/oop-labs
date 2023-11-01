@@ -13,3 +13,4 @@ Laboratory Works on Object Oriented Programming Course FAF.POO22.1 at TUM.
 - [Laboratory 0](lab0/README.md)
 - [Laboratory 1](lab1/README.md)
 - [Laboratory 2](lab2/README.md)
+- [Laboratory 3](lab3/README.md)
