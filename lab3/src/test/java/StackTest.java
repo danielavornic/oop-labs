@@ -12,9 +12,9 @@ public class StackTest {
 
   @BeforeEach
   public void setUp() {
-    arrayStack = new ArrayStack<>();
-    vectorStack = new VectorStack<>();
-    linkedStack = new LinkedStack<>();
+    arrayStack = new ArrayStack<>(3);
+    vectorStack = new VectorStack<>(3);
+    linkedStack = new LinkedStack<>(3);
   }
 
   @Test
@@ -33,17 +33,16 @@ public class StackTest {
 
   @Test
   public void testIsEmpty() {
-    assertTrue(arrayStack.isEmpty());
-    assertTrue(vectorStack.isEmpty());
-    assertTrue(linkedStack.isEmpty());
+    assertIsEmpty(arrayStack);
+    assertIsEmpty(vectorStack);
+    assertIsEmpty(linkedStack);
+  }
 
-    arrayStack.push(1);
-    vectorStack.push(1);
-    linkedStack.push(1);
-
-    assertFalse(arrayStack.isEmpty());
-    assertFalse(vectorStack.isEmpty());
-    assertFalse(linkedStack.isEmpty());
+  @Test
+  public void testIsFull() {
+    assertIsFull(arrayStack);
+    assertIsFull(vectorStack);
+    assertIsFull(linkedStack);
   }
 
   private void assertPushAndPop(Stack<Integer> stack) {
@@ -65,5 +64,20 @@ public class StackTest {
 
     stack.push(3);
     assertEquals(3, stack.peek());
+  }
+
+  private void assertIsEmpty(Stack<Integer> stack) {
+    assertTrue(stack.isEmpty());
+    stack.push(1);
+    assertFalse(stack.isEmpty());
+  }
+
+  private void assertIsFull(Stack<Integer> stack) {
+    stack.push(1);
+    stack.push(2);
+    assertFalse(stack.isFull());
+
+    stack.push(3);
+    assertTrue(stack.isFull());
   }
 }

@@ -9,5 +9,7 @@ public interface Stack<E> {
 
   boolean isEmpty();
 
+  boolean isFull();
+
   int size();
 }
