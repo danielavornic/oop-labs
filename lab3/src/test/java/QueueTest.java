@@ -12,16 +12,16 @@ public class QueueTest {
 
   @BeforeEach
   public void setUp() {
-    arrayQueue = new ArrayQueue<>();
-    vectorQueue = new VectorQueue<>();
-    linkedQueue = new LinkedQueue<>();
+    arrayQueue = new ArrayQueue<>(3);
+    vectorQueue = new VectorQueue<>(3);
+    linkedQueue = new LinkedQueue<>(3);
   }
 
   @Test
-  public void testEnqueueAndDequeue() {
-    assertEnqueueAndDequeue(arrayQueue);
-    assertEnqueueAndDequeue(vectorQueue);
-    assertEnqueueAndDequeue(linkedQueue);
+  public void testPushAndPop() {
+    assertPushAndPop(arrayQueue);
+    assertPushAndPop(vectorQueue);
+    assertPushAndPop(linkedQueue);
   }
 
   @Test
@@ -33,37 +33,56 @@ public class QueueTest {
 
   @Test
   public void testIsEmpty() {
-    assertTrue(arrayQueue.isEmpty());
-    assertTrue(vectorQueue.isEmpty());
-    assertTrue(linkedQueue.isEmpty());
-
-    arrayQueue.enqueue(1);
-    vectorQueue.enqueue(1);
-    linkedQueue.enqueue(1);
-
-    assertFalse(arrayQueue.isEmpty());
-    assertFalse(vectorQueue.isEmpty());
-    assertFalse(linkedQueue.isEmpty());
+    assertIsEmpty(arrayQueue);
+    assertIsEmpty(vectorQueue);
+    assertIsEmpty(linkedQueue);
   }
 
-  private void assertEnqueueAndDequeue(Queue<Integer> queue) {
-    queue.enqueue(1);
-    queue.enqueue(2);
-    queue.enqueue(3);
+  @Test
+  public void testIsFull() {
+    assertIsFull(arrayQueue);
+    assertIsFull(vectorQueue);
+    assertIsFull(linkedQueue);
+  }
 
-    assertEquals(1, queue.dequeue());
-    assertEquals(2, queue.dequeue());
-    assertEquals(3, queue.dequeue());
+  private void assertPushAndPop(Queue<Integer> queue) {
+    queue.push(1);
+    queue.push(2);
+    queue.push(3);
+
+    assertEquals(1, queue.pop());
+    assertEquals(2, queue.pop());
+    assertEquals(3, queue.pop());
   }
 
   private void assertPeek(Queue<Integer> queue) {
-    queue.enqueue(1);
+    queue.push(1);
     assertEquals(1, queue.peek());
 
-    queue.enqueue(2);
+    queue.push(2);
     assertEquals(1, queue.peek());
 
-    queue.enqueue(3);
+    queue.push(3);
     assertEquals(1, queue.peek());
+  }
+
+  private void assertIsEmpty(Queue<Integer> queue) {
+    assertTrue(queue.isEmpty());
+
+    queue.push(1);
+    assertFalse(queue.isEmpty());
+
+    queue.pop();
+    assertTrue(queue.isEmpty());
+  }
+
+  private void assertIsFull(Queue<Integer> queue) {
+    for (int i = 0; i < 2; i++) {
+      queue.push(i);
+      assertFalse(queue.isFull());
+    }
+
+    queue.push(3);
+    assertTrue(queue.isFull());
   }
 }

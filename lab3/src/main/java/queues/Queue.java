@@ -1,13 +1,15 @@
 package queues;
 
 public interface Queue<E> {
-  void enqueue(E item);
+  void push(E item);
 
-  E dequeue();
+  E pop();
 
   E peek();
 
   boolean isEmpty();
+
+  boolean isFull();
 
   int size();
 }

@@ -1,15 +1,32 @@
 package queues;
 
 import java.util.Vector;
+import static queues.QueueConstants.*;
 
 public class VectorQueue<E> implements Queue<E> {
   private Vector<E> vector = new Vector<>();
+  private int capacity;
 
-  public void enqueue(E item) {
-    vector.add(item);
+  public VectorQueue() {
+    this(DEFAULT_CAPACITY);
   }
 
-  public E dequeue() {
+  public VectorQueue(int capacity) {
+    this.capacity = capacity;
+  }
+
+  public void push(E item) {
+    if (!isFull()) {
+      vector.add(item);
+    } else {
+      throw new IllegalStateException("Queue is full");
+    }
+  }
+
+  public E pop() {
+    if (isEmpty()) {
+      throw new RuntimeException("Queue underflow");
+    }
     return vector.remove(0);
   }
 
@@ -19,6 +36,10 @@ public class VectorQueue<E> implements Queue<E> {
 
   public boolean isEmpty() {
     return vector.isEmpty();
+  }
+
+  public boolean isFull() {
+    return vector.size() == capacity;
   }
 
   public int size() {

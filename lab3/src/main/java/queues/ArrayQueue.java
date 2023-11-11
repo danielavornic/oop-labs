@@ -1,28 +1,39 @@
 package queues;
 
+import static queues.QueueConstants.*;
+
 public class ArrayQueue<E> implements Queue<E> {
   private Object[] array;
   private int front, rear, size;
-  private static final int DEFAULT_CAPACITY = 10;
+  private int capacity;
 
   public ArrayQueue() {
+    this.capacity = DEFAULT_CAPACITY;
     array = new Object[DEFAULT_CAPACITY];
     front = 0;
     rear = 0;
     size = 0;
   }
 
-  public void enqueue(E item) {
-    if (size == array.length) {
-      resize(2 * array.length);
+  public ArrayQueue(int capacity) {
+    array = new Object[capacity];
+    front = 0;
+    rear = 0;
+    size = 0;
+  }
+
+  public void push(E item) {
+    if (!isFull()) {
+      array[rear] = item;
+      rear = (rear + 1) % array.length;
+      size++;
+    } else {
+      throw new IllegalStateException("Queue is full");
     }
-    array[rear] = item;
-    rear = (rear + 1) % array.length;
-    size++;
   }
 
   @SuppressWarnings("unchecked")
-  public E dequeue() {
+  public E pop() {
     if (isEmpty()) {
       throw new RuntimeException("Queue underflow");
     }
@@ -46,6 +57,10 @@ public class ArrayQueue<E> implements Queue<E> {
 
   public boolean isEmpty() {
     return size == 0;
+  }
+
+  public boolean isFull() {
+    return size == array.length;
   }
 
   public int size() {
