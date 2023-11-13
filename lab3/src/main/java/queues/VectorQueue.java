@@ -25,7 +25,7 @@ public class VectorQueue<E> implements Queue<E> {
 
   public E pop() {
     if (isEmpty()) {
-      throw new RuntimeException("Queue underflow");
+      throw new RuntimeException("Queue is empty");
     }
     return vector.remove(0);
   }

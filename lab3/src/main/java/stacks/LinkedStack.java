@@ -25,7 +25,7 @@ public class LinkedStack<E> implements Stack<E> {
 
   public E pop() {
     if (isEmpty()) {
-      throw new RuntimeException("Stack underflow");
+      throw new RuntimeException("Stack is empty");
     }
     return list.pop();
   }
